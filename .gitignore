@@ -1,0 +1,98 @@
+# Compiled Binary and Runtime Files
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.log
+*.userosscache
+*.userprefs
+*.vspscc
+*.vssscc
+
+# Ignore 
+/Api/Uploads/
+
+# ASP.NET Scaffolding
+.scaffolding/
+
+# Rider project files
+.idea/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated folders by Visual Studio
+.vscode/
+.vs/
+_ReSharper*/
+*.[Cc]ache/
+[Tt]est[Rr]esult*/ 
+[Bb]uild[Ll]og.*
+
+# NuGet packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Backup file artifacts
+*.bak
+*.swp
+*.swm
+*.swp
+*.swo
+*.tmp
+
+# JetBrains Rider
+.idea/
+
+# Other IDE Specific Files
+.project
+.classpath
+.csettings
+.psettings
+.factorypath
+
+# Visual Studio for Mac
+.vscode/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code specific files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ASP.NET Core Secret Manager
+**/secrets.json
+
+# DotNet
+project.lock.json
+project.fragment.lock.json
+artifacts/
