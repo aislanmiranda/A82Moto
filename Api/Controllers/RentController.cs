@@ -33,8 +33,8 @@ public class rentController : Controller
         return Ok(budget);
     }
 
-    [HttpGet("myrentals")]
-    public async Task<IActionResult> MyRentals()
+    [HttpGet("rentals")]
+    public async Task<IActionResult> Rentals()
     {
         var rentails = await _service.GetAllAsync();
 

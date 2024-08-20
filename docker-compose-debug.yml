@@ -21,20 +21,6 @@ services:
     networks:
       - my-network
 
-  app:
-    container_name: back-prod
-    image: app-net7:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      MONGO__CONNECTIONSTRING: "mongodb://mongodb:27017"
-      MONGO__DATABASE: "a82Moto"
-    ports:
-      - "8080:80"
-    networks:
-      - my-network
-
 networks:
   my-network:
     driver: bridge

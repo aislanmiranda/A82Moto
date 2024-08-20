@@ -69,7 +69,7 @@ public class RabbitMQService : IRabbitMQService, IDisposable
     private string GetHostName()
     {
         #if DEBUG
-                return "localhost";
+            return "localhost";
         #else
             return "rabbit-prod";
         #endif

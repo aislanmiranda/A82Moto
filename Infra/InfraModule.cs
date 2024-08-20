@@ -5,9 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using MassTransit;
 using Infra.Messaging;
-using Domain.Entities;
 
 namespace Infra;
 
