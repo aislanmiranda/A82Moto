@@ -47,7 +47,7 @@ docker-compose ps
 ![Captura de Tela 2024-08-20 às 02 08 36](https://github.com/user-attachments/assets/13dd53c8-2f53-40a1-831c-0c18ec02f87f)
 
 ## Rodando aplicação que consome a fila
-Com os projetos rodando localmente ou no docker, acesse o projeto RabbitConsumerConsole, clique com o botão direito e selecione a opção "Iniciar a depuração do projeto".
+Com os projetos rodando localmente ou no docker, acesse o projeto RabbitConsumerConsole, clique com o botão direito e selecione a opção "Iniciar a depuração do projeto". O consumidor receberá mensagens das motos cadastradas com o ano de 2024.
 
 ![Captura de Tela 2024-08-20 às 02 12 29](https://github.com/user-attachments/assets/4aa06c25-876a-4066-b471-29e6dfc4b77a)
 
