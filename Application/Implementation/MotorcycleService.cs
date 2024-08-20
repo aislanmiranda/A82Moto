@@ -14,11 +14,14 @@ public class MotorcycleService : IMotorcycleService
     private readonly IMotorcycleRepository _repository;
     private readonly IMapper _mapper;
     private readonly IRabbitMQService _messageBus;
+    private readonly INotificationRepository _notificationRegister;
 
     public MotorcycleService(IMotorcycleRepository repository,
+        INotificationRepository notificationRegister,
         IMapper mapper, IRabbitMQService messageBus)
     {
         _repository = repository;
+        _notificationRegister = notificationRegister;
         _mapper = mapper;
         _messageBus = messageBus;
     }
@@ -31,17 +34,22 @@ public class MotorcycleService : IMotorcycleService
             if(existPlate != null)
                 throw new HttpExceptionCustom(ExceptionMessage.ERROR_403, ExceptionMessage.ERROR_403_MSG);
 
-            var motocycle = _mapper.Map<Motorcycle>(dto);
+            var motorcycle = _mapper.Map<Motorcycle>(dto);
 
-            await _repository.AddAsync(motocycle);
+            await _repository.AddAsync(motorcycle);
 
             if(dto.Year == 2024)
             {
-                _messageBus.PublishMessage(new
+                var notifyDto = new NotificationRequestDto
                 {
-                    Nome = "Creted Motorcycle",
-                    EventName = $"Creted Motorcycle {dto.Plate} year {dto.Year}"
-                });
+                    EventName = "Creted Motorcycle",
+                    Message = $"Creted Motorcycle {dto.Plate} year {dto.Year}"
+                };
+                 var notify = _mapper.Map<Notification>(notifyDto);
+
+                _messageBus.PublishMessage(notify);
+
+                await _notificationRegister.AddAsync(notify);
             }
         }
         catch (HttpExceptionCustom ex)

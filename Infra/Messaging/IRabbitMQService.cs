@@ -1,7 +1,9 @@
 ﻿
+using Domain.Entities;
+
 namespace Infra.Messaging;
 
 public interface IRabbitMQService
 {
-	void PublishMessage(object data);	
+	void PublishMessage(Notification data);	
 }

@@ -34,11 +34,6 @@ public class FluentValidationMiddleware
         {
             error.PropertyName,
             error.ErrorMessage
-            //AttemptedValue = error.AttemptedValue,
-            //CustomState = error.CustomState,
-            //Severity = error.Severity.ToString(),
-            //ErrorCode = error.ErrorCode,
-            //FormattedMessagePlaceholderValues = error.FormattedMessagePlaceholderValues
         });
 
         var response = new

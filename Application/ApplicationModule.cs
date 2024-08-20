@@ -2,6 +2,7 @@
 using Application.Interface;
 using Application.Mapper;
 using FluentValidation.AspNetCore;
+using Infra.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -24,6 +25,7 @@ public static class ApplicationModule
         services.AddScoped<IMotorcycleService, MotorcycleService>();
         services.AddScoped<IPlanService, PlanService>();
         services.AddScoped<IRentService, RentService>();
+        services.AddScoped<IRabbitMQService, RabbitMQService>();
 
         return services;
     }
@@ -34,6 +36,7 @@ public static class ApplicationModule
         services.AddAutoMapper(typeof(DeliveryManMapper));
         services.AddAutoMapper(typeof(PlanMapper));
         services.AddAutoMapper(typeof(RentMapper));
+        services.AddAutoMapper(typeof(NotificationMapper));
 
         return services;
     }

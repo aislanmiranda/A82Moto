@@ -24,6 +24,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 
 # Definir diretório de trabalho na imagem de runtime
 WORKDIR /app
+RUN mkdir -p /app/Uploads/
+RUN chmod -R 755 /app/Uploads/
 
 # Copiar os binários da aplicação da imagem de build
 COPY --from=build /app/release .

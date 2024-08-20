@@ -7,6 +7,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MassTransit;
 using Infra.Messaging;
+using Domain.Entities;
 
 namespace Infra;
 
@@ -70,7 +71,7 @@ public static class InfraModule
         services.AddScoped<IDeliveryManRepository, DeliveryManRepository>();
         services.AddScoped<IPlanRepository, PlanRepository>();
         services.AddScoped<IRentRepository, RentRepository>();
-
+        services.AddScoped<INotificationRepository, NotificationRepository>();
         return services;
     }
 }

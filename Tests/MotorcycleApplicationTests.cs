@@ -11,6 +11,7 @@ using Moq;
 public class MotorcycleApplicationTests
 {
     private readonly Mock<IMotorcycleRepository> _mockRepository;
+    private readonly Mock<INotificationRepository> _mockNotificationRepository;
     private readonly Mock<IMapper> _mockMapper;
     private readonly Mock<IRabbitMQService> _mockMessageBus;
     private readonly MotorcycleService _service;
@@ -19,10 +20,12 @@ public class MotorcycleApplicationTests
     public MotorcycleApplicationTests()
     {
         _mockRepository = new Mock<IMotorcycleRepository>();
+        _mockNotificationRepository = new Mock<INotificationRepository>();
         _mockMapper = new Mock<IMapper>();
         _mockMessageBus = new Mock<IRabbitMQService>();
         _service = new MotorcycleService(
             _mockRepository.Object,
+            _mockNotificationRepository.Object,
             _mockMapper.Object,
             _mockMessageBus.Object
         );
@@ -48,6 +51,19 @@ public class MotorcycleApplicationTests
             plate: "ABC-1234"
         );
 
+        var notificationRequest = new NotificationRequestDto
+        {
+            EventName = "Created Motorcycle",
+            Message = "Created Motorcycle XYZ year 2024",
+            SendDate = DateTime.Now
+        };
+
+        var notificationExpected = new Notification(
+            eventName: "Created Motorcycle",
+            message: "Created Motorcycle XYZ year 2024",
+            sendDate: notificationRequest.SendDate
+        );
+
         _mockRepository.Setup(repo => repo.GetByPlateAsync(dto.Plate))
             .ReturnsAsync((Motorcycle)null);
 
@@ -58,19 +74,18 @@ public class MotorcycleApplicationTests
             .Returns(dtoExpected);
 
         var _mockRabbitMQService = new Mock<IRabbitMQService>();
-        var testMessage = new
-        {
-            Nome = "Created Motorcycle",
-            EventName = "Created Motorcycle XYZ year 2024"
-        };
-        _mockRabbitMQService.Object.PublishMessage(testMessage);
+        
+        _mockMapper.Setup(mapper => mapper.Map<Notification>(notificationRequest))
+            .Returns(notificationExpected);
+
+        _mockRabbitMQService.Object.PublishMessage(notificationExpected);
 
         // Act
         await _service.AddAsync(dto);
 
         // Assert
         _mockRepository.Verify(repo => repo.AddAsync(It.IsAny<Motorcycle>()), Times.Once);
-        _mockRabbitMQService.Verify(service => service.PublishMessage(testMessage), Times.Once);
+        _mockRabbitMQService.Verify(service => service.PublishMessage(notificationExpected), Times.Once);
     }
 
     [Fact]
