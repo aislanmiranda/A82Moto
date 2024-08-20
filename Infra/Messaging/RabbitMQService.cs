@@ -19,8 +19,8 @@ public class RabbitMQService : IRabbitMQService, IDisposable
     {
 	    var connectionFactory = new ConnectionFactory
 	    {
-		    HostName = "rabbit-prod"
-	    };
+		    HostName = GetHostName()
+        };
 
 	    _connection = connectionFactory.CreateConnection(_connectionName);
 	    _channel = _connection.CreateModel();
@@ -64,5 +64,14 @@ public class RabbitMQService : IRabbitMQService, IDisposable
     ~RabbitMQService()
     {
         Dispose(false);
+    }
+
+    private string GetHostName()
+    {
+        #if DEBUG
+                return "localhost";
+        #else
+            return "rabbit-prod";
+        #endif
     }
 }
